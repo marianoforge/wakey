@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Wakey Design System — dark, trustworthy, road-safety focused */
+/* All colors in HSL */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@layer base {
+  :root {
+    /* Base surfaces */
+    --background: 225 40% 6%;
+    --foreground: 210 20% 95%;
+
+    --card: 222 38% 10%;
+    --card-foreground: 210 20% 95%;
+
+    --popover: 222 38% 10%;
+    --popover-foreground: 210 20% 95%;
+
+    /* Brand blue — calm, trustworthy */
+    --primary: 210 85% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary surface */
+    --secondary: 220 32% 16%;
+    --secondary-foreground: 210 20% 90%;
+
+    --muted: 220 30% 14%;
+    --muted-foreground: 215 15% 52%;
+
+    --accent: 210 85% 55%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 25% 18%;
+    --input: 220 30% 14%;
+    --ring: 210 85% 55%;
+
+    --radius: 1rem;
+
+    /* Sidebar (unused but needed by shadcn) */
+    --sidebar-background: 225 40% 6%;
+    --sidebar-foreground: 210 20% 95%;
+    --sidebar-primary: 210 85% 55%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 220 32% 16%;
+    --sidebar-accent-foreground: 210 20% 90%;
+    --sidebar-border: 220 25% 18%;
+    --sidebar-ring: 210 85% 55%;
+
+    /* Wakey-specific state colors */
+    --state-awake: 145 65% 42%;
+    --state-awake-foreground: 0 0% 100%;
+    --state-awake-glow: 145 65% 42% / 0.35;
+
+    --state-drowsy: 38 95% 55%;
+    --state-drowsy-foreground: 20 50% 10%;
+    --state-drowsy-glow: 38 95% 55% / 0.4;
+
+    --state-alarm: 0 85% 55%;
+    --state-alarm-foreground: 0 0% 100%;
+    --state-alarm-glow: 0 85% 55% / 0.5;
+
+    /* Gradient */
+    --gradient-hero: linear-gradient(160deg, hsl(225 50% 8%) 0%, hsl(220 45% 12%) 100%);
+    --gradient-card: linear-gradient(135deg, hsl(222 38% 12%), hsl(220 32% 9%));
+    --gradient-primary: linear-gradient(135deg, hsl(210 85% 55%), hsl(220 85% 65%));
+
+    /* Shadows */
+    --shadow-primary: 0 0 30px hsl(210 85% 55% / 0.25);
+    --shadow-awake: 0 0 40px hsl(145 65% 42% / 0.35);
+    --shadow-drowsy: 0 0 40px hsl(38 95% 55% / 0.4);
+    --shadow-alarm: 0 0 60px hsl(0 85% 55% / 0.6);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+  }
+}
+
+@layer utilities {
+  .text-state-awake { color: hsl(var(--state-awake)); }
+  .text-state-drowsy { color: hsl(var(--state-drowsy)); }
+  .text-state-alarm { color: hsl(var(--state-alarm)); }
+
+  .bg-state-awake { background-color: hsl(var(--state-awake)); }
+  .bg-state-drowsy { background-color: hsl(var(--state-drowsy)); }
+  .bg-state-alarm { background-color: hsl(var(--state-alarm)); }
+
+  .border-state-awake { border-color: hsl(var(--state-awake)); }
+  .border-state-drowsy { border-color: hsl(var(--state-drowsy)); }
+  .border-state-alarm { border-color: hsl(var(--state-alarm)); }
+
+  .glow-primary { box-shadow: var(--shadow-primary); }
+  .glow-awake { box-shadow: var(--shadow-awake); }
+  .glow-drowsy { box-shadow: var(--shadow-drowsy); }
+  .glow-alarm { box-shadow: var(--shadow-alarm); }
+
+  .gradient-hero { background: var(--gradient-hero); }
+  .gradient-card { background: var(--gradient-card); }
+  .gradient-primary { background: var(--gradient-primary); }
+}
+
+/* Keyframes */
+@keyframes pulse-alarm {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(0 85% 55% / 0.7), inset 0 0 0 0 hsl(0 85% 55% / 0.1); }
+  50% { box-shadow: 0 0 0 20px hsl(0 85% 55% / 0), inset 0 0 80px hsl(0 85% 55% / 0.25); }
+}
+
+@keyframes pulse-drowsy {
+  0%, 100% { box-shadow: 0 0 0 0 hsl(38 95% 55% / 0.6); }
+  50% { box-shadow: 0 0 0 16px hsl(38 95% 55% / 0); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(32px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes blink-eye {
+  0%, 90%, 100% { transform: scaleY(1); }
+  95% { transform: scaleY(0.1); }
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-pulse-alarm { animation: pulse-alarm 1.2s ease-in-out infinite; }
+.animate-pulse-drowsy { animation: pulse-drowsy 1.6s ease-in-out infinite; }
+.animate-fade-in-up { animation: fade-in-up 0.5s ease-out forwards; }
+.animate-slide-in-right { animation: slide-in-right 0.4s ease-out forwards; }
+.animate-blink-eye { animation: blink-eye 3s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 8s linear infinite; }
+
+/* Drive mode full screen */
+.drive-mode-screen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+}
